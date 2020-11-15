@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css"
+import { threeSum } from "./threeSum"
+import { reverseInteger } from "./reverse-integer"
+import { sudoku } from "./soduku"
+// import { twoSum } from "./twoSum"
 
 function App() {
+  const output = sudoku()
+  console.log("output", output) // zzz
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>{"output"}</p>
+        <p>{output}</p>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
