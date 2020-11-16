@@ -11,7 +11,7 @@ export const rotateImage = () => {
     [7, 8, 9],
   ]
 
-  const matrix1 = [
+  const matrix2 = [
     [5, 1, 9, 11],
     [2, 4, 8, 10],
     [13, 3, 6, 7],
@@ -22,9 +22,16 @@ export const rotateImage = () => {
   return output
 
   //
+  //
 }
 
 const test = `
+
+transformation
+Q1: [y, -x]
+Q2: [,]
+Q3: [,]
+Q4: [,]
 
 Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
 Output: [[7,4,1],[8,5,2],[9,6,3]]
