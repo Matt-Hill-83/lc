@@ -33,13 +33,6 @@ export const decodeStringTop = () => {
         "-",
         "?",
       ]
-      const bOpen = "["
-      const bClosed = "]"
-
-      const processLoopNum = (str) => {
-        let output = parseInt(str)
-        return output
-      }
 
       const findEndingBracketIndex = (str, endBracketSearchStartIdx) => {
         let index = -1
@@ -60,28 +53,30 @@ export const decodeStringTop = () => {
       }
 
       let output = ""
-
       let loopedContent = ""
-      let accumulatedLoopNum = ""
-      let loopNum = -1
+      let accumulatedTimesToRepeat = ""
+      let timesToRepeat = null
 
       for (let i = 0; i < str.length; i++) {
         const char = str[i]
         if (letters.includes(char.toLowerCase())) {
           output += char
         } else if (numbers.includes(char)) {
-          accumulatedLoopNum += char
-        } else if (char === bOpen) {
-          loopNum = processLoopNum(accumulatedLoopNum)
-
+          accumulatedTimesToRepeat += char
+        } else if (char === "[") {
+          timesToRepeat = parseInt(accumulatedTimesToRepeat)
           const endingBracketIndex = findEndingBracketIndex(str, i)
-          const subStrBefore = str.slice(i + 1, endingBracketIndex)
-          i += subStrBefore.length
-          accumulatedLoopNum = ""
+          const subStrInBrackets = str.slice(i + 1, endingBracketIndex)
+          // skip the parsing past the subsection sent to the processor
+          i += subStrInBrackets.length
 
-          loopedContent = recursiveSearch(subStrBefore)
-        } else if (char === bClosed) {
-          for (let j = 0; j < loopNum; j++) {
+          // reset this
+          accumulatedTimesToRepeat = ""
+
+          // Save the looped content so that you can use it when you find the end bracket
+          loopedContent = recursiveSearch(subStrInBrackets)
+        } else if (char === "]") {
+          for (let j = 0; j < timesToRepeat; j++) {
             output = output + loopedContent
           }
         }
@@ -90,10 +85,7 @@ export const decodeStringTop = () => {
       return output
     }
 
-    let output = ""
-
-    output += recursiveSearch(str)
-
+    const output = recursiveSearch(str)
     return output
   }
 
