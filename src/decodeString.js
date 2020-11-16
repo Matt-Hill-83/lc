@@ -1,96 +1,102 @@
 export const decodeStringTop = () => {
   //
-  //
-  //
-  const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
-  const letters = ["a", "b", "c", "d", "e", "-", "?"]
-  const bOpen = "["
-  const bClosed = "]"
-
-  const processLoopNum = (str) => {
-    let output = parseInt(str)
-    return output
-  }
-
-  const findEndingBracketIndex = (str, endBracketSearchStartIdx) => {
-    console.log("findEndingBracketIndex **********", str) // zzz
-    console.log("str.slice", str.slice(endBracketSearchStartIdx)) // zzz
-    let index = -1
-    let openBracketCount = 1
-
-    for (let i = endBracketSearchStartIdx; i < str.length; i++) {
-      // if abort
-      const char = str[i]
-      console.log("char", char) // zzz
-      if (char === "[") openBracketCount++
-      if (char === "]") {
-        openBracketCount--
-        if (openBracketCount === 1) {
-          index = i
-          break
-        }
-      }
-    }
-    return index
-  }
-
-  const recursiveSearch = (str) => {
-    let output = ""
-    console.log("") // zzz
-    console.log("start") // zzz
-    console.log("str", str) // zzz
-
-    let loopedContent = ""
-    let accumulatedLoopNum = ""
-    let loopNum = -1
-
-    for (let i = 0; i < str.length; i++) {
-      const char = str[i]
-      console.log("i", i) // zzz
-      console.log("char", char) // zzz
-      if (letters.includes(char)) {
-        output += char
-      } else if (numbers.includes(char)) {
-        accumulatedLoopNum += char
-      } else if (char === bOpen) {
-        console.log("bOpen++++++++++++++++++") // zzz
-        loopNum = processLoopNum(accumulatedLoopNum)
-
-        const endingBracketIndex = findEndingBracketIndex(str, i)
-        console.log("endingBracketIndex", endingBracketIndex) // zzz
-        const subStrBefore = str.slice(i + 1, endingBracketIndex)
-        i += subStrBefore.length
-        console.log("subStrBefore=================>>>>>", subStrBefore) // zzz
-        accumulatedLoopNum = ""
-
-        loopedContent = recursiveSearch(subStrBefore)
-        console.log("+++++++++++>>>loopedContent-------------", loopedContent) // zzz
-      } else if (char === bClosed) {
-        console.log("bClosed-------------------") // zzz
-        console.log("loopNum", loopNum) // zzz
-        console.log("loopedContent", loopedContent) // zzz
-        for (let j = 0; j < loopNum; j++) {
-          console.log("j", j) // zzz
-          output = output + loopedContent
-          console.log("output----------------->>>", output) // zzz
-        }
-      }
-    }
-
-    return output
-  }
-
   const decodeString = function (str) {
+    const recursiveSearch = (str) => {
+      const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+      const letters = [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z",
+        "-",
+        "?",
+      ]
+      const bOpen = "["
+      const bClosed = "]"
+
+      const processLoopNum = (str) => {
+        let output = parseInt(str)
+        return output
+      }
+
+      const findEndingBracketIndex = (str, endBracketSearchStartIdx) => {
+        let index = -1
+        let openBracketCount = 1
+
+        for (let i = endBracketSearchStartIdx; i < str.length; i++) {
+          const char = str[i]
+          if (char === "[") openBracketCount++
+          if (char === "]") {
+            openBracketCount--
+            if (openBracketCount === 1) {
+              index = i
+              break
+            }
+          }
+        }
+        return index
+      }
+
+      let output = ""
+
+      let loopedContent = ""
+      let accumulatedLoopNum = ""
+      let loopNum = -1
+
+      for (let i = 0; i < str.length; i++) {
+        const char = str[i]
+        if (letters.includes(char.toLowerCase())) {
+          output += char
+        } else if (numbers.includes(char)) {
+          accumulatedLoopNum += char
+        } else if (char === bOpen) {
+          loopNum = processLoopNum(accumulatedLoopNum)
+
+          const endingBracketIndex = findEndingBracketIndex(str, i)
+          const subStrBefore = str.slice(i + 1, endingBracketIndex)
+          i += subStrBefore.length
+          accumulatedLoopNum = ""
+
+          loopedContent = recursiveSearch(subStrBefore)
+        } else if (char === bClosed) {
+          for (let j = 0; j < loopNum; j++) {
+            output = output + loopedContent
+          }
+        }
+      }
+
+      return output
+    }
+
     let output = ""
 
     output += recursiveSearch(str)
-    console.log("output", output) // zzz
 
     return output
   }
 
-  // const s = "3[a]"
-  // const s = "2[aa-]2[bb-]5[cc-]"
   const s = "3[a2[-]]"
   const output = decodeString(s)
 
