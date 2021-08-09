@@ -1,36 +1,42 @@
 export const firstUniqueChar = () => {
   //
-  //   2:37 - 2:46
-  const firstUniqChar = function (s) {
+  //   2:09 - 2:19
+
+  const firstUniqueChar = (str) => {
+    let output = -1
     const dict = {}
 
-    const length = s.length
-    let output = -1
-
-    for (let i = 0; i < length; i++) {
-      const char = s[i]
+    for (let i = 0; i <= str.length; i++) {
+      const char = str[i]
       if (dict[char]) {
-        dict[char] += 1
+        dict[char] = dict[char] + 1
       } else {
         dict[char] = 1
       }
+
+      console.log("char", char) // zzz
     }
 
-    for (let i = 0; i < length; i++) {
-      const char = s[i]
-      const found = dict[char]
-      if (found && found === 1) {
+    for (let i = 0; i <= str.length; i++) {
+      const char = str[i]
+      if (dict[char] === 1) {
         output = i
         break
       }
+
+      console.log("char", char) // zzz
     }
 
+    console.log("output", output) // zzz
     return output
   }
 
-  const input = "loveleetcode"
-  const output = firstUniqChar(input)
-  return output
+  // const str = "leetcode"
+  const str = "loveleetcode"
+
+  const final = firstUniqueChar(str)
+  console.log("final", final) // zzz
+  return final
 }
 
 const test = `

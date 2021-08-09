@@ -3,7 +3,7 @@ export const sudoku = () => {
     const findDupsInRow = (ary) => {
       let isValid = true
       const dict = {}
-      ary.every((item, i) => {
+      const test1 = ary.every((item, i) => {
         if (dict[item]) {
           isValid = false
           return false
@@ -14,17 +14,13 @@ export const sudoku = () => {
         return true
       })
 
+      console.log("test1", test1) // zzz
+
       return isValid
     }
 
     const testRows = (board) => {
-      let isValid = true
-      board.every((row) => {
-        const dupsFound = findDupsInRow(row)
-        isValid = isValid && dupsFound
-        return dupsFound
-      })
-      return isValid
+      return board.every((row) => findDupsInRow(row))
     }
 
     const createSubGridStartLocations = (board) => {
@@ -97,6 +93,7 @@ export const sudoku = () => {
   ]
 
   const output = isValidSudoku(board)
+  console.log("output", output) // zzz
 
   return output
 }

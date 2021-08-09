@@ -1,25 +1,59 @@
-export const twoSum = () => {
-  var twoSum = function (nums, target) {
-    const dict = {}
-    const matches = []
+// export const twoSum = () => {
+//   var twoSum = function (nums, target) {
+//     const dict = {}
+//     const matches = []
 
-    nums.forEach((item, i) => {
-      const comp = target - item
-      const foundCompIndex = dict[item]
-      const exists = foundCompIndex !== undefined
+//     nums.forEach((item, i) => {
+//       const comp = target - item
+//       const foundCompIndex = dict[item]
+//       const exists = foundCompIndex !== undefined
 
-      if (exists) {
-        matches.push([foundCompIndex, i])
-      }
-      dict[comp] = i
-    })
-    return matches
+//       if (exists) {
+//         matches.push([foundCompIndex, i])
+//       }
+//       dict[comp] = i
+//     })
+//     return matches
+//   }
+
+//   const nums = [2, 7, 2, 8, -4]
+//   const target = 4
+//   const output = twoSum(nums, target)
+//   return output
+// }
+
+
+export const twoSum = () =>{
+let my2Sum = function(arr, target){
+
+const testDict = {}
+const outputArr = []
+
+arr.forEach((item,i)=> {
+  console.log(item);  // zzz
+
+  const compliment = target - item
+  const foundMatchIndex = testDict[compliment] 
+  console.log('foundMatchIndex', foundMatchIndex); // zzz
+
+  if (foundMatchIndex !== undefined)  {
+    outputArr.push([i, foundMatchIndex])
   }
+  testDict[item] = i
 
-  const nums = [2, 7, 2, 8, -4]
-  const target = 4
-  const output = twoSum(nums, target)
-  return output
+  
+})
+
+console.log('outputArr', outputArr); // zzz
+  return outputArr
+
+}
+
+const arr = [2,7,11,35,-2]
+const target = 9
+
+const result = my2Sum(arr,target)
+  return result
 }
 
 const test = `

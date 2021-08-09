@@ -1,47 +1,57 @@
-export const threeSum = () => {
-  //
-  //
-  //
-  const threeSum = (nums) => {
-    const twoSum = function (nums, target) {
-      const dict = {}
-      const matches = []
+// 4:39 - 5:10
 
-      nums.forEach((item, i) => {
-        const comp = target - item
-        const foundCompIndex = dict[item]
-        const exists = foundCompIndex !== undefined
+const twoSum = ({ otherNums, target }) => {
+  const output = []
+  const dict = {}
 
-        if (exists) {
-          matches.push([nums[foundCompIndex], nums[i]])
-        }
-        dict[comp] = i
-      })
-      return matches
+  otherNums.forEach((num, index) => {
+    dict[num] = { index: index }
+  })
+
+  otherNums.forEach((num, index) => {
+    const solution = target - num
+    if (dict[solution] && dict[solution]["index"] !== index) {
+      console.log("dict[solution][index]", dict[solution]["index"]) // zzz
+      output.push([num, solution])
     }
+    // dict[num] = num
+  })
 
-    const output = []
+  return output
+}
+
+export const threeSum = () => {
+  const threeSum = (nums) => {
+    // for each num
+    // calc target
+    // run 2sum on target -- returns array
+    // sort array - store it with Json key
+    //  Object.values
+
+    const semiFinal = []
+    const final = {}
     nums.forEach((num, i) => {
-      const temp = [...nums]
-      temp.splice(i, 1)
+      const otherNums = [...nums]
+      otherNums.splice(i, 1)
 
-      const twoSumOutput = twoSum(temp, -num)
-      twoSumOutput.forEach((item) => {
-        output.push([...item, num].sort())
+      const matches = twoSum({ otherNums: otherNums, target: -num })
+      console.log("matches", matches) // zzz
+      matches.forEach((tuple) => {
+        const triple = [...tuple, num]
+        triple.sort()
+        semiFinal.push(triple)
+        final[JSON.stringify(triple)] = triple
       })
     })
-
-    const newDict = {}
-    output.forEach((item) => {
-      const str = JSON.stringify(item)
-      newDict[str] = item
-    })
-    return Object.values(newDict)
+    console.log("semiFinal.length", semiFinal.length) // zzz
+    console.log("final", final) // zzz
+    return Object.values(final)
   }
 
   const nums = [-1, 0, 1, 2, -1, -4]
-  const output = threeSum(nums)
-  return output
+  const final = threeSum(nums)
+  console.log("final", final) // zzz
+  return final
 }
 
 const test = `
